@@ -1,22 +1,13 @@
-const https = require('https');
-const fs = require('fs');
+const http = require('http');
+const router = require('./routes/api')
 
-https.get('https://sandbox.iexapis.com/stable/stock/aapl/news?token=Tsk_09b57d3b11144c5089408fcd94074fc0', res => {
-    let data = '';
+const PORT = 5000;
+const route = 'https://sandbox.iexapis.com/stable/stock/aapl/news?token=Tsk_09b57d3b11144c5089408fcd94074fc0'
 
-    res.on('data', info =>{
-        data += info;
-    });
+const server = http.createServer((req, res) => {
+    router(req, res, route);
+});
 
-    res.on('end', () =>{
-        let jsonData = JSON.stringify(data);
-        fs.writeFile("test.json", jsonData, (err, result)=>{
-            if(err){
-                console.log('error', err);
-            }
-        });
-    });
-
-}).on('error', err =>{
-    console.log('Error: ' + err.message);
+server.listen(PORT, () => {
+    console.log(`Server connected on port: ${PORT}`);
 });
