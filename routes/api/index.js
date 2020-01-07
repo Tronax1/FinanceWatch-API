@@ -8,10 +8,14 @@ module.exports = (req, res, routes) =>{
         let logo = await routes.companylogo();
         let news = await routes.latestnews();
 
-        
-        console.log(price);
-        console.log(logo);
-        console.log(news);
+        const stock = {
+            latestStockPrice: price,
+            companyLogoPath: logo.url,
+            latestNewsArticle: news[0].url
+        }
+        let jsonStock = JSON.stringify(stock, null, '\t');
+
+        console.log(jsonStock);
         res.end();
     });
 }
