@@ -1,3 +1,4 @@
+const fs = require('fs');
 
 module.exports = (req, res, routes) =>{
     req.on("data", ()=>{
@@ -15,7 +16,12 @@ module.exports = (req, res, routes) =>{
         }
         let jsonStock = JSON.stringify(stock, null, '\t');
 
-        console.log(jsonStock);
+        //console.log(jsonStock);
+        fs.writeFile('test.json', jsonStock, err => {
+            if(err)
+                console.log(err);
+        });
+
         res.end();
     });
 }
