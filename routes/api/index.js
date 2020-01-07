@@ -5,7 +5,7 @@ module.exports = (req, res, routes) =>{
         console.log("Nothing to see here");
     })
     req.on("end", () => {
-        routes.companylogo();
+        routes.latestnews();
         res.end();
     });
 }
