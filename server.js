@@ -1,5 +1,5 @@
 const http = require('http');
-const router = require('./routes/api/index');
+const router = require('./routes/api/router');
 const routes = require('./routes/api/routes');
 
 const PORT = 5000;
