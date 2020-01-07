@@ -7,7 +7,7 @@ module.exports = url => {
             data = JSON.parse(info);
         })
         res.on('end', () => {
-            console.log(data.url);
+            console.log(data[0].url);
         });
     }).on("error", err => {
         console.log("Error" + err.message);
