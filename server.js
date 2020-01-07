@@ -1,11 +1,11 @@
 const http = require('http');
-const router = require('./routes/api')
+const router = require('./routes/api/index');
+const routes = require('./routes/api/routes');
 
 const PORT = 5000;
-const route = 'https://sandbox.iexapis.com/stable/stock/aapl/news?token=Tsk_09b57d3b11144c5089408fcd94074fc0'
 
 const server = http.createServer((req, res) => {
-    router(req, res, route);
+    router(req, res, routes);
 });
 
 server.listen(PORT, () => {

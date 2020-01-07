@@ -1,16 +1,11 @@
 const fs = require('fs');
 
 module.exports = (req, res, routes) =>{
-    let data = '';
-    res.on('data', info =>{
-        data += info;
+    req.on("data", ()=>{
+        console.log("Nothing to see here");
     })
-    res.on('end', ()=>{
-        let jsonData = JSON.stringify(data);
-        fs.writeFile('test.json', jsonData, (err)=>{
-            if(err){
-                console.log('error', err);
-            }
-        })
-    })
+    req.on("end", () => {
+        routes.companylogo();
+        res.end();
+    });
 }
