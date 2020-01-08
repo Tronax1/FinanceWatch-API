@@ -1,5 +1,3 @@
-const url = require('url');
-
 const stockpriceController = require('../../controllers/stockpriceController');
 const logoController = require('../../controllers/logoController');
 const newsController = require('../../controllers/newsController');
