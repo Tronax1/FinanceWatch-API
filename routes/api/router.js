@@ -14,25 +14,40 @@ module.exports = (req, res, routes) =>{
         let date = Date(Date.now());
         let newDate = date.toString();
         
-        const requestInfo = {
-            urlPath: newUrl.pathname,
-            reqDate: newDate,
-            isRequestSuccessful: true
+        if(price == ''  && logo == '' && news === ''){
+            const requestInfo = {
+                urlPath: newUrl.pathname,
+                reqDate: newDate,
+                isRequestSuccessful: false
+            }
+            let jsonRequest = JSON.stringify(requestInfo, null, '\t');
+            fs.writeFile('requestLog.json', jsonRequest, err => {
+                if (err)
+                    console.log(err);
+            });
+            res.write('Error on request');
+            res.end();
         }
-        const stock = {
-            latestStockPrice: price,
-            companyLogoPath: logo.url,
-            latestNewsArticle: news[0].url,
-        }
-        let jsonStock = JSON.stringify(stock, null, '\t');
-        let jsonRequest = JSON.stringify(requestInfo, null, '\t');
+        else{
+            const requestInfo = {
+                urlPath: newUrl.pathname,
+                reqDate: newDate,
+                isRequestSuccessful: true
+            }
+            const stock = {
+                latestStockPrice: price,
+                companyLogoPath: logo.url,
+                latestNewsArticle: news[0].url,
+            }
+            let jsonStock = JSON.stringify(stock, null, '\t');
+            let jsonRequest = JSON.stringify(requestInfo, null, '\t');
 
-        fs.writeFile('test.json', jsonRequest, err => {
-            if(err)
-                console.log(err);
-        });
-        console.log(newUrl.pathname);
-        res.write(jsonStock);
-        res.end();
+            fs.writeFile('requestLog.json', jsonRequest, err => {
+                if (err)
+                    console.log(err);
+            });
+            res.write(jsonStock);
+            res.end();
+        }
     });
 }

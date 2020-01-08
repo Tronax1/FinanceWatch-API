@@ -11,13 +11,19 @@ module.exports = url => {
                 data += info;
             })
             res.on('end', () => {
-                resolve(data);
+                if(data == 'Unknown symbol'){
+                    data = '';
+                    resolve(data);
+                }
+                else{
+                    resolve(data);
+                }
             });
             res.on('error', err =>{
                 reject(err);
             })
         }).on("error", err => {
-            console.log("Error" + err.message);
+            reject(err);
         });
     })
 }

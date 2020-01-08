@@ -8,7 +8,8 @@ module.exports = url => {
             let data = '';
 
             res.on('data', info => {
-                data = JSON.parse(info);
+                if(info != 'Unknown symbol')
+                    data = JSON.parse(info);
             })
             res.on('end', () => {
                 resolve(data);
@@ -17,7 +18,7 @@ module.exports = url => {
                 reject(err);
             })
         }).on("error", err => {
-            console.log("Error" + err.message);
+            reject(err);
         })
     })
 }
